@@ -90,7 +90,7 @@ class DroneDeliveryProblem(SearchProblem):
 
     def cost(self, state: DroneState, action: str, state2: DroneState) -> float:
         if action == "RECHARGE":
-            time_cost = self.env.recharge_time
+            time_cost = self.env.recharge_time / self.env.max_time
             energy_cost = 0
             recharge_cost = 1
             return self.env.weight_time * time_cost + self.env.weight_energy * energy_cost + self.env.weight_recharge * recharge_cost
