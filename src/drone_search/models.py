@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Dict, FrozenSet, Iterable, Tuple
+from simpleai.search import SearchProblem
 
 Position = Tuple[int, int, int]
 WindField = Dict[Position, Tuple[int, int, int]]
-
 
 @dataclass(frozen=True)
 class DroneState:

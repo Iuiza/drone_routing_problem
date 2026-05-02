@@ -18,7 +18,6 @@ MOVE_DELTAS = {
 
 class DroneDeliveryProblem(SearchProblem):
     """Problema de busca para rota de drone em grid 3D dinâmico."""
-    count_recharges: int = 0
     def __init__(self, env: EnvironmentConfig):
         self.env = env
         initial_state = DroneState(
@@ -93,10 +92,11 @@ class DroneDeliveryProblem(SearchProblem):
         if action == "RECHARGE":
             time_cost = self.env.recharge_time
             energy_cost = 0
-            return self.env.weight_time * time_cost + self.env.weight_energy * energy_cost
+            recharge_cost = 1
+            return self.env.weight_time * time_cost + self.env.weight_energy * energy_cost + self.env.weight_recharge * recharge_cost
 
         if action == "WAIT":
-            return self.env.weight_time * 1
+            return self.env.weight_time * 1 + self.env.weight_energy * self._energy_for_waiting(state.pos)
 
         delta = MOVE_DELTAS[action]
         energy = self._energy_for_move(state.pos, delta) / self.env.max_battery
@@ -117,6 +117,11 @@ class DroneDeliveryProblem(SearchProblem):
         wind = self.env.wind_vector(position)
         alignment = -(wind[0] * delta[0] + wind[1] * delta[1] + wind[2] * delta[2])
         return max(1, base + max(0, alignment))
+
+    def _energy_for_waiting(self, position: Tuple[int, int, int]) -> int:
+        wind = self.env.wind_vector(position)
+        alignment = -(wind[0] * 0 + wind[1] * 0 + wind[2] * 0)
+        return max(1, max(0, alignment))
 
     def _time_penalty_from_wind(self, position: Tuple[int, int, int], delta: Tuple[int, int, int]) -> int:
         wind = self.env.wind_vector(position)
