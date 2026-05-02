@@ -64,7 +64,7 @@ def generate_random_instance(seed: int) -> EnvironmentConfig:
         recharge_stations=frozenset(recharge_stations),
         wind=wind,
         no_fly_zones=tuple(no_fly_zones),
-        max_time=50,
+        max_time=60,
     )
 
 

@@ -99,8 +99,8 @@ class DroneDeliveryProblem(SearchProblem):
             return self.env.weight_time * 1 + self.env.weight_energy * self._energy_for_waiting(state.pos)
 
         delta = MOVE_DELTAS[action]
-        energy = self._energy_for_move(state.pos, delta)
-        time_cost = self.env.move_time + self._time_penalty_from_wind(state.pos, delta)
+        energy = self._energy_for_move(state.pos, delta) / 100
+        time_cost = self.env.move_time + self._time_penalty_from_wind(state.pos, delta) / 60
         return self.env.weight_time * time_cost + self.env.weight_energy * energy
 
     def heuristic(self, state: DroneState) -> float:

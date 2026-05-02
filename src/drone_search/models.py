@@ -47,8 +47,8 @@ class EnvironmentConfig:
     move_energy: int = 1
     recharge_time: int = 2
     recharge_amount: int = 6
-    weight_time: float = 1.0
-    weight_energy: float = 1.0
+    weight_time: float = 0.7
+    weight_energy: float = 0.3
     obstacles: FrozenSet[Position] = field(default_factory=frozenset)
     recharge_stations: FrozenSet[Position] = field(default_factory=frozenset)
     wind: WindField = field(default_factory=dict)
