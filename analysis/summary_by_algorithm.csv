@@ -1,0 +1,5 @@
+algorithm,runs,successful_runs,failed_runs,success_rate,avg_total_cost_success,avg_execution_time_sec,avg_expanded_nodes,avg_chosen_nodes,avg_max_fringe_size,avg_path_length_success,median_execution_time_sec,median_total_cost_success,best_total_cost_success,worst_total_cost_success
+astar,50.0,50.0,0.0,100.0,19.16,0.04967809400000983,79.16,80.16,133.24,9.46,0.010048999999980799,18.0,14.0,27.0
+uniform_cost,50.0,50.0,0.0,100.0,19.16,3.163382470000006,1742.88,1743.88,759.42,9.46,1.84354425000015,18.0,14.0,27.0
+breadth_first,50.0,50.0,0.0,100.0,19.64,0.8015405820000069,1240.38,1241.38,503.76,9.46,0.4673597000000882,20.0,14.0,28.0
+greedy,50.0,50.0,0.0,100.0,26.98,0.3569594420000067,397.82,398.82,134.62,15.62,0.00140205000013785,20.0,14.0,66.0
