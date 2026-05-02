@@ -80,7 +80,7 @@ class DroneDeliveryProblem(SearchProblem):
                 x=state.x,
                 y=state.y,
                 z=state.z,
-                battery=state.battery,
+                battery=state.battery - self._energy_for_waiting(state.pos),
                 time_step=state.time_step + 1,
             )
 
@@ -96,7 +96,7 @@ class DroneDeliveryProblem(SearchProblem):
             return self.env.weight_time * time_cost + self.env.weight_energy * energy_cost
 
         if action == "WAIT":
-            return self.env.weight_time * 1
+            return self.env.weight_time * 1 + self.env.weight_energy * self._energy_for_waiting(state.pos)
 
         delta = MOVE_DELTAS[action]
         energy = self._energy_for_move(state.pos, delta)
@@ -117,6 +117,11 @@ class DroneDeliveryProblem(SearchProblem):
         wind = self.env.wind_vector(position)
         alignment = -(wind[0] * delta[0] + wind[1] * delta[1] + wind[2] * delta[2])
         return max(1, base + max(0, alignment))
+
+    def _energy_for_waiting(self, position: Tuple[int, int, int]) -> int:
+        wind = self.env.wind_vector(position)
+        alignment = -(wind[0] * 0 + wind[1] * 0 + wind[2] * 0)
+        return max(1, max(0, alignment))
 
     def _time_penalty_from_wind(self, position: Tuple[int, int, int], delta: Tuple[int, int, int]) -> int:
         wind = self.env.wind_vector(position)
