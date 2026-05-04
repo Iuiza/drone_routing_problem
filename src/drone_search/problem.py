@@ -18,7 +18,7 @@ MOVE_DELTAS = {
 
 class DroneDeliveryProblem(SearchProblem):
     """Problema de busca para rota de drone em grid 3D dinâmico."""
-    count_recharges: int = 0
+
     def __init__(self, env: EnvironmentConfig):
         self.env = env
         initial_state = DroneState(
@@ -80,7 +80,7 @@ class DroneDeliveryProblem(SearchProblem):
                 x=state.x,
                 y=state.y,
                 z=state.z,
-                battery=state.battery - self._energy_for_waiting(state.pos),
+                battery=state.battery,
                 time_step=state.time_step + 1,
             )
 
@@ -91,10 +91,10 @@ class DroneDeliveryProblem(SearchProblem):
 
     def cost(self, state: DroneState, action: str, state2: DroneState) -> float:
         if action == "RECHARGE":
-            self.count_recharges += 1
-            time_cost = self.env.recharge_time
+            time_cost = self.env.recharge_time / self.env.max_time
             energy_cost = 0
-            return self.env.weight_time * time_cost + self.env.weight_energy * energy_cost
+            recharge_cost = 1
+            return self.env.weight_time * time_cost + self.env.weight_energy * energy_cost + self.env.weight_recharge * recharge_cost
 
         if action == "WAIT":
             return self.env.weight_time * 1 + self.env.weight_energy * self._energy_for_waiting(state.pos)
@@ -102,8 +102,7 @@ class DroneDeliveryProblem(SearchProblem):
         delta = MOVE_DELTAS[action]
         energy = self._energy_for_move(state.pos, delta) / self.env.max_battery
         time_cost = self.env.move_time + self._time_penalty_from_wind(state.pos, delta) / self.env.max_time
-
-        return self.env.weight_time * time_cost + self.env.weight_energy * energy + self.env.weight_recharge * self.count_recharges
+        return self.env.weight_time * time_cost + self.env.weight_energy * energy
 
     def heuristic(self, state: DroneState) -> float:
         # Heurística admissível:

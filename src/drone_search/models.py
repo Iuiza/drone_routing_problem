@@ -6,7 +6,6 @@ from typing import Dict, FrozenSet, Iterable, Tuple
 Position = Tuple[int, int, int]
 WindField = Dict[Position, Tuple[int, int, int]]
 
-
 @dataclass(frozen=True)
 class DroneState:
     """Estado imutável do drone para uso com graph_search=True."""

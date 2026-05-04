@@ -110,3 +110,9 @@ python main.py experiments --instances 50 --output results/results.csv
 python main.py analyze --input results/results.csv --output-dir analysis
 python main.py inspect --seed 1 --algorithm astar --output mapa.png
 ```
+
+Para gerar as visualizações:
+
+```bash
+python main.py visualize-batch --instances 50 --seed-start 1 --algorithm astar --output-dir visualizations
+```

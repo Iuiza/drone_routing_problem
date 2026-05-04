@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import random
 from collections import deque
-from typing import List, Optional, Sequence, Tuple
+from typing import List, Sequence
 
 from .models import EnvironmentConfig, NoFlyZone, Position
 
