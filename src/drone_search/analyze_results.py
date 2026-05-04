@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import math
 from pathlib import Path
-from typing import Iterable
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -49,8 +48,6 @@ def analyze_csv(input_csv: str, output_dir: str = "analysis") -> Path:
     _plot_average_expanded_nodes(df, out_dir / "average_expanded_nodes.png")
     _plot_box_time(df, out_dir / "boxplot_execution_time.png")
     _plot_box_cost(df, out_dir / "boxplot_total_cost_success_only.png")
-    _plot_scatter_cost_time(df, out_dir / "scatter_cost_vs_time.png")
-    _plot_scalability(df, out_dir / "scalability_expanded_nodes_vs_obstacles.png")
 
     return out_dir
 
@@ -232,40 +229,6 @@ def _plot_box_cost(df: pd.DataFrame, output: Path) -> None:
     fig.tight_layout()
     fig.savefig(output, dpi=200)
     plt.close(fig)
-
-
-
-def _plot_scatter_cost_time(df: pd.DataFrame, output: Path) -> None:
-    success_df = df[df["success"] == True].copy()
-    if success_df.empty:
-        return
-    fig, ax = plt.subplots(figsize=(10, 6))
-    for algorithm, group in success_df.groupby("algorithm"):
-        ax.scatter(group["execution_time_sec"], group["total_cost"], label=algorithm, alpha=0.7)
-    ax.set_title("Custo da solução vs. tempo de execução")
-    ax.set_xlabel("Tempo de execução (s)")
-    ax.set_ylabel("Custo total")
-    ax.grid(alpha=0.3)
-    ax.legend()
-    fig.tight_layout()
-    fig.savefig(output, dpi=200)
-    plt.close(fig)
-
-
-
-def _plot_scalability(df: pd.DataFrame, output: Path) -> None:
-    fig, ax = plt.subplots(figsize=(10, 6))
-    for algorithm, group in df.groupby("algorithm"):
-        ax.scatter(group["obstacles"], group["expanded_nodes"], label=algorithm, alpha=0.7)
-    ax.set_title("Nós expandidos vs. quantidade de obstáculos")
-    ax.set_xlabel("Obstáculos")
-    ax.set_ylabel("Nós expandidos")
-    ax.grid(alpha=0.3)
-    ax.legend()
-    fig.tight_layout()
-    fig.savefig(output, dpi=200)
-    plt.close(fig)
-
 
 
 def _write_text_report(df: pd.DataFrame, summary: pd.DataFrame, output: Path) -> None:
