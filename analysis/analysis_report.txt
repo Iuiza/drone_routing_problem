@@ -4,15 +4,15 @@ Total de execuções analisadas: 250
 Quantidade de instâncias: 50
 Algoritmos comparados: astar, breadth_first, depth_first, greedy, uniform_cost
 
-Maior taxa de sucesso: uniform_cost (100.00%).
-Menor tempo médio de execução: astar (0.006941 s).
-Menor custo médio entre soluções válidas: uniform_cost (10.202).
-Menor média de nós expandidos: astar (25.30).
+Maior taxa de sucesso: astar (100.00%).
+Menor tempo médio de execução: astar (0.050390 s).
+Menor custo médio entre soluções válidas: astar (1.075).
+Menor média de nós expandidos: astar (66.28).
 
 Resumo por algoritmo:
 
-- uniform_cost: sucesso=100.00% | custo médio=10.202 | tempo médio=1.949 s | nós expandidos=1017.580
-- breadth_first: sucesso=100.00% | custo médio=10.230 | tempo médio=0.743 s | nós expandidos=1240.380
-- astar: sucesso=100.00% | custo médio=10.328 | tempo médio=0.007 s | nós expandidos=25.300
-- greedy: sucesso=100.00% | custo médio=21.714 | tempo médio=0.324 s | nós expandidos=397.820
-- depth_first: sucesso=100.00% | custo médio=90.656 | tempo médio=0.194 s | nós expandidos=1245.840
+- astar: sucesso=100.00% | custo médio=1.075 | tempo médio=0.050 s | nós expandidos=66.280
+- uniform_cost: sucesso=100.00% | custo médio=1.075 | tempo médio=1.787 s | nós expandidos=1035.220
+- breadth_first: sucesso=100.00% | custo médio=1.102 | tempo médio=1.188 s | nós expandidos=1240.380
+- greedy: sucesso=100.00% | custo médio=1.836 | tempo médio=0.813 s | nós expandidos=517.380
+- depth_first: sucesso=100.00% | custo médio=6.663 | tempo médio=0.358 s | nós expandidos=1255.840

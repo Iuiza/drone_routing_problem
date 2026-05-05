@@ -109,13 +109,13 @@ class DroneDeliveryProblem(SearchProblem):
         return self.env.weight_time * time_cost + self.env.weight_energy * energy
 
     def heuristic(self, state):
-    goal = self.env.goal
-    distance = abs(state.x - goal[0]) + abs(state.y - goal[1]) + abs(state.z - goal[2])
-    min_step_cost = (
-        self.env.weight_time * (self.env.move_time / self.env.max_time) +
-        self.env.weight_energy * (1 / self.env.max_battery)  # 1 = mínimo garantido pelo max(1,...)
-    )
-    return distance * min_step_cost
+        goal = self.env.goal
+        distance = abs(state.x - goal[0]) + abs(state.y - goal[1]) + abs(state.z - goal[2])
+        min_step_cost = (
+            self.env.weight_time * (self.env.move_time / self.env.max_time) +
+            self.env.weight_energy * (1 / self.env.max_battery)  # 1 = mínimo garantido pelo max(1,...)
+        )
+        return distance * min_step_cost
 
     def _energy_for_move(self, position: Tuple[int, int, int], delta: Tuple[int, int, int]) -> int:
         base = self.env.move_energy
