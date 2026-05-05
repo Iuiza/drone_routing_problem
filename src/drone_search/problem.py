@@ -97,11 +97,15 @@ class DroneDeliveryProblem(SearchProblem):
             return self.env.weight_time * time_cost + self.env.weight_energy * energy_cost + self.env.weight_recharge * recharge_cost
 
         if action == "WAIT":
-            return self.env.weight_time * 1 + self.env.weight_energy * self._energy_for_waiting(state.pos)
+            time_cost = 1 / self.env.max_time
+            energy_cost = self._energy_for_waiting(state.pos) / self.env.max_battery
+            return self.env.weight_time * time_cost + self.env.weight_energy * energy_cost
 
         delta = MOVE_DELTAS[action]
         energy = self._energy_for_move(state.pos, delta) / self.env.max_battery
-        time_cost = self.env.move_time + self._time_penalty_from_wind(state.pos, delta) / self.env.max_time
+        time_cost = (
+            self.env.move_time + self._time_penalty_from_wind(state.pos, delta)
+        ) / self.env.max_time
         return self.env.weight_time * time_cost + self.env.weight_energy * energy
 
     def heuristic(self, state: DroneState) -> float:
